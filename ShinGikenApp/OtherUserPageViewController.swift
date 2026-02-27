@@ -28,9 +28,8 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var addWatchBtn: UIButton!
     
-    var tableArray = UserDefaults.standard.array(forKey: "eventName") ?? []
-    var eventDayArray = UserDefaults.standard.array(forKey: "eventName") ?? []
-    
+	var eventList = [[String:String]]()
+	
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -53,7 +52,7 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.tableArray.count
+		return self.eventList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -72,12 +71,12 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
         
         if let label = cell?.contentView.viewWithTag(1) as? UILabel
         {
-            label.text = self.tableArray[indexPath.row] as! String
+			label.text = self.eventList[indexPath.row]["event_name"]
         }
         if let label = cell?.contentView.viewWithTag(2) as? UILabel
         {
             
-            label.text = self.eventDayArray[indexPath.row] as! String
+            label.text = self.eventList[indexPath.row]["event_date"]
         }
         
         return cell!
@@ -197,9 +196,8 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
             self.iconImageView.frame.size.width = 80
             self.iconImageView.frame.size.height = 80
             
-            self.readEventData(userID: myData["id"].intValue)
-            
-            
+			self.eventList = myData["events"].arrayValue.compactMap { $0.dictionaryObject as? [String: String] }
+            self.tableView.reloadData()
             
             if let savedFavoUsers = UserDefaults.standard.array(forKey: "favoUserID") as? [[String: Int]]
             {
@@ -240,39 +238,5 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
         nextViewController?.otherID = self.userID
     }
     
-    func readEventData(userID: Int)
-    {
-        print("readEventData関数到達")
-        AF.request("\(self.ipStr):readEventInfo.php",
-                   method: .post,
-                   parameters: ["userID": userID],
-                   encoding: URLEncoding.httpBody,
-                   headers: nil,
-                   interceptor: nil,
-                   requestModifier: nil)
-        .response
-        { res in
-            
-            self.tableArray = []
-            self.eventDayArray = []
-            if let resData = res.data
-            {
-                
-                print(JSON(resData))
-                
-                for i in JSON(resData).arrayValue
-                {
-                    self.tableArray.append(i["event_name"].stringValue)
-                    self.eventDayArray.append(i["event_date"].stringValue)
-                }
-//                self.tableArray = JSON(resData)["event_name"].arrayValue
-                
-                print(self.tableArray)
-                print(self.eventDayArray)
-                
-                self.tableView.reloadData()
-            }
-        }
-    }
 
 }
