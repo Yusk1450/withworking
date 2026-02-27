@@ -30,6 +30,7 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var achieveChangeBtn: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var eventTopLabel: UILabel!
     
     var myUserData = UserDefaults.standard.dictionary(forKey: "myData")
         
@@ -41,9 +42,19 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
 		
 		self.achieveChangeBtn.isUserInteractionEnabled = false
         
+<<<<<<< Updated upstream
 		self.postMyData()
         guard let myFavoAchievement = self.myUserData?["achievementName"]as? String else { return }
         guard let myName = self.myUserData?["userName"]as? String else { return }
+=======
+        postMyData()
+        
+        eventTopLabel.layer.borderWidth = 1
+        eventTopLabel.layer.borderColor = UIColor(red: 188/255, green: 154/255, blue: 101/255, alpha: 1.0).cgColor
+        
+        guard let myFavoAchievement = self.myUserData?["achievementName"]as? String else{return}
+        guard let myName = self.myUserData?["userName"]as? String else{return}
+>>>>>>> Stashed changes
         
         self.achieveChangeBtn.setTitle(myFavoAchievement, for: .normal)
         self.userNameLabel.text = myName
@@ -59,10 +70,7 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.sumWeekTimeLabel.layer.cornerRadius = 5.0
         self.sumWeekTimeLabel.clipsToBounds = true
         
-        self.eventTableTitle.layer.borderWidth = 1.0
-        self.eventTableTitle.layer.borderColor = UIColor(red: 188.0 / 255.0, green: 154.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0).cgColor
-        self.eventTableTitle.layer.cornerRadius = 20.0
-        self.eventTableTitle.clipsToBounds = true
+        
         
         self.tableView.rowHeight = 88
     }
@@ -89,6 +97,7 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
         }
         
+<<<<<<< Updated upstream
 		if let label = cell?.contentView.viewWithTag(1) as? UILabel
 		{
 			label.text = self.eventList[indexPath.row]["event_name"]
@@ -99,6 +108,22 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
 				label.text = "\(eventDate) 開催！"
 			}
 		}
+=======
+//        cell?.textLabel?.text = self.tableArray[indexPath.row] as! String
+        
+        if let label = cell?.contentView.viewWithTag(1) as? UILabel
+        {
+            label.text = self.tableArray[indexPath.row] as! String
+        }
+        if let label = cell?.contentView.viewWithTag(2) as? UILabel
+        {
+            
+            if let eventDay = self.eventDayArray[indexPath.row] as? String {
+                label.text = "\(eventDay) 開催！"
+            }
+
+        }
+>>>>>>> Stashed changes
         
         return cell!
     }

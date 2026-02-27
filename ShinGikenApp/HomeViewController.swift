@@ -28,6 +28,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 	var myUserID = -1
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var stayLabel1: UILabel!
+    @IBOutlet weak var stayLabel2: UILabel!
     
     let sectionTitles = ["現在利用しているユーザー","ウォッチングリスト","コワーキング利用ランキング"]
     
@@ -93,6 +95,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return self.sectionTitles[section]
     }
     
+    func tableView(_ tableView: UITableView,
+                   heightForHeaderInSection section: Int) -> CGFloat {
+
+        if section == 2 {
+            return 74
+        }
+
+        return 34
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let headerView = UIView()
@@ -140,8 +152,48 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             title.translatesAutoresizingMaskIntoConstraints = false
             title.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
             title.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20).isActive = true
-        }else
-        if section == 2{}
+        }else if section == 2 {
+            
+            let headerView = UIView(frame: CGRect(x: 0,
+                                                  y: 0,
+                                                  width: tableView.frame.width,
+                                                  height: 80))
+
+            headerView.backgroundColor = .clear
+
+            // 上余白 16px の位置に線
+            let line = UIView(frame: CGRect(x: 0,
+                                            y: 16,
+                                            width: tableView.frame.width,
+                                            height: 1))
+            line.backgroundColor = UIColor(red: 188/255,
+                                           green: 154/255,
+                                           blue: 101/255,
+                                           alpha: 1.0)
+
+            headerView.addSubview(line)
+
+            let imageView = UIImageView(frame: CGRect(x: 20,
+                                                      y: 32,
+                                                      width: 20,
+                                                      height: 20))
+            imageView.image = UIImage(named: "rankingIcon")
+            imageView.contentMode = .scaleAspectFit
+
+            headerView.addSubview(imageView)
+
+            let title = UILabel(frame: CGRect(x: 48,
+                                              y: 32,
+                                              width: 300,
+                                              height: 20))
+            title.text = self.sectionTitles[section]
+            title.font = UIFont(name: "LINESeedJPApp_OTF-Regular", size: 20)
+            title.textColor = .white
+
+            headerView.addSubview(title)
+
+            return headerView
+        }
         
         return headerView
     }
@@ -190,6 +242,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         {
             identifier = "rankingCell"
         }
+        
         
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
         
@@ -423,8 +476,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 				{
 					if (user["users_id"] as! Int == self.myUserID)
 					{
-						self.todayStayTime.isHidden = false
-						self.todayStayTime.text = "\(user["diff_hours"] as! Int)時間"
+                        let hours = user["diff_hours"] as? Int ?? 0
+                        
+                        if hours < 1 {
+                            self.todayStayTime.text = "0時間"
+                        } else {
+                            self.todayStayTime.text = "\(hours)時間"
+                        }
+
+                        self.todayStayTime.isHidden = false
+                        self.stayLabel1.isHidden = false
+                        self.stayLabel2.isHidden = false
 					}
 				}
 				
