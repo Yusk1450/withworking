@@ -8,6 +8,6 @@
 class ShareData
 {
     static let shared = ShareData()
-    let IP = "http://172.16.0.163:8888/Desktop/withworking/gikenTest/"
+    let IP = "https://yusk1450.sakura.ne.jp/withworking/"
     
 }
