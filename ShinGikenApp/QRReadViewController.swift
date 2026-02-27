@@ -95,9 +95,21 @@ class QRReadViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     self.captureSession = nil
                     
                     self.uploadEventData(eventName: eventName, userID: myUserID as! Int)
+                    self.performSegue(withIdentifier: "toEventPopup", sender: eventName)
                     
-                    dismiss(animated: true)
+//                    dismiss(animated: true)
                 }
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEventPopup" {
+            let nextVC = segue.destination as! eventPopupViewController
+            
+            if let eventName = sender as? String {
+
+                nextVC.eventName = eventName
             }
         }
     }
@@ -123,6 +135,7 @@ class QRReadViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             }
         }
     }
+    
     
     override func viewWillDisappear(_ animated: Bool)
     {
