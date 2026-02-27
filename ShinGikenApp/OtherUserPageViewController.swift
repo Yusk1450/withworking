@@ -47,8 +47,8 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
             print(self.favoUsers)
         }
         
-        eventTopLabel.layer.borderWidth = 1
-        eventTopLabel.layer.borderColor = UIColor(red: 188/255, green: 154/255, blue: 101/255, alpha: 1.0).cgColor
+        self.eventTopLabel.layer.borderWidth = 1
+        self.eventTopLabel.layer.borderColor = UIColor(red: 188/255, green: 154/255, blue: 101/255, alpha: 1.0).cgColor
 
     }
     

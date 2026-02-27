@@ -741,7 +741,7 @@ Cg
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gX0-iw-QAO">
-                                <rect key="frame" x="20" y="48" width="134" height="47"/>
+                                <rect key="frame" x="20" y="72" width="134" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="マイページ">
@@ -962,18 +962,18 @@ Cg
                                     <attributedString key="attributedTitle">
                                         <fragment content="連続">
                                             <attributes>
-                                                <font key="NSFont" metaFont="system" size="14"/>
+                                                <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
                                                 <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                             </attributes>
                                         </fragment>
                                         <fragment content="7">
                                             <attributes>
-                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
                                             </attributes>
                                         </fragment>
                                         <fragment content="日間">
                                             <attributes>
-                                                <font key="NSFont" metaFont="system" size="14"/>
+                                                <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
                                                 <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                             </attributes>
                                         </fragment>
@@ -1013,7 +1013,7 @@ Cg
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1P-jU-CKV">
-                                                    <rect key="frame" x="37" y="8" width="38" height="23"/>
+                                                    <rect key="frame" x="37" y="8" width="215" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Label">
@@ -1457,7 +1457,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KMZ-18-Ozg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2187" y="-773"/>
+            <point key="canvasLocation" x="-1149" y="66"/>
         </scene>
         <!--Shin Message View Controller-->
         <scene sceneID="NP9-Me-n0O">
@@ -1566,7 +1566,7 @@ Cg
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpj-8i-0Uh">
-                                <rect key="frame" x="20" y="48" width="148" height="47"/>
+                                <rect key="frame" x="20" y="72" width="148" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="メッセージ">
@@ -1610,7 +1610,7 @@ Cg
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="z2p-NU-VXe"/>
+        <segue reference="Ezc-2g-9ol"/>
         <segue reference="dtS-fZ-oF1"/>
     </inferredMetricsTieBreakers>
     <resources>
