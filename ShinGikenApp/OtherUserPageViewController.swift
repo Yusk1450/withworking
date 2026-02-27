@@ -31,6 +31,8 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var continuationLabel: UILabel!
     
     var isfavo = false
+	var otherUserName: String?
+	var otherImageURL: String?
     
     var eventList = [[String:String]]()
 	
@@ -201,12 +203,15 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
             self.prevTimeLabel.text = "\(myData["prev_7d_hours"])時間\(myData["prev_7d_minutes"])分"
             self.totalTimeLabel.text = "\(myData["total_hours"])時間\(myData["total_minutes_only"])分"
             
-            self.userNameLabel.text = "\(myData["userName"])"
+            self.otherUserName = myData["userName"].stringValue
+            self.otherImageURL = myData["imageURL"].stringValue
+            
+            self.userNameLabel.text = self.otherUserName
             self.userNameLabel.sizeToFit()
             let StudentImgPos = self.userNameLabel.frame.origin.x + self.userNameLabel.frame.size.width + 10
             self.studentImageView.frame.origin.x = StudentImgPos
             
-            self.iconImageView.sd_setImage(with: URL(string: "\(self.ipStr)uploads/\(myData["imageURL"])"), completed: nil)
+            self.iconImageView.sd_setImage(with: URL(string: "\(self.ipStr)uploads/\(self.otherImageURL ?? "")"), completed: nil)
             self.iconImageView.frame.size.width = 80
             self.iconImageView.frame.size.height = 80
             
@@ -261,6 +266,8 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
 
         nextViewController?.userID = String(UserDefaults.standard.integer(forKey: "myUserID"))
         nextViewController?.otherID = self.userID
+        nextViewController?.otherName = self.otherUserName
+        nextViewController?.otherImageURL = self.otherImageURL
     }
     
 
