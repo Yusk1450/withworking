@@ -36,6 +36,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.rowHeight = 88
     }
     
+    override func viewDidAppear(_ animated: Bool)
+    {
+        super.viewDidAppear(animated)
+        
+        if UserDefaults.standard.object(forKey: "myUserID") == nil
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewController")
+            vc?.modalPresentationStyle = .fullScreen
+            self.present(vc!, animated: true)
+            return
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool)
     {

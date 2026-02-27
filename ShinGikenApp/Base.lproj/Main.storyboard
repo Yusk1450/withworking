@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qjh-nq-uRA">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -17,7 +17,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ShinGikenApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="ShinGikenApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,7 +42,7 @@
                                         <fragment content="アイコン選択">
                                             <attributes>
                                                 <color key="NSColor" red="0.12941176470588234" green="0.22745098039215686" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                                <font key="NSFont" metaFont="system" size="14"/>
                                                 <font key="NSOriginalFont" size="12" name="Helvetica"/>
                                             </attributes>
                                         </fragment>
@@ -72,7 +72,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="職業を選択">
                                         <attributes>
-                                            <font key="NSFont" size="22" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="22"/>
                                             <font key="NSOriginalFont" metaFont="system" size="17"/>
                                         </attributes>
                                     </fragment>
@@ -86,7 +86,7 @@
                                     <fragment content="ニックネーム">
                                         <attributes>
                                             <color key="NSColor" red="0.12941176470588234" green="0.22745098039215686" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="22" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="22"/>
                                             <font key="NSOriginalFont" metaFont="system" size="17"/>
                                         </attributes>
                                     </fragment>
@@ -116,7 +116,7 @@
                                     <fragment content="アカウント作成">
                                         <attributes>
                                             <color key="NSColor" red="1" green="0.80000000000000004" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="20" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="20"/>
                                             <font key="NSOriginalFont" metaFont="system" size="17"/>
                                         </attributes>
                                     </fragment>
@@ -129,7 +129,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="勉強時間などが自動投稿されます。">
                                         <attributes>
-                                            <font key="NSFont" size="16" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="16"/>
                                             <real key="NSKern" value="0.0"/>
                                             <font key="NSOriginalFont" size="12" name="Times-Roman"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
@@ -144,7 +144,7 @@
 Cg
 </string>
                                         <attributes>
-                                            <font key="NSFont" size="16" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="16"/>
                                             <real key="NSKern" value="0.0"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
                                                 <tabStops/>
@@ -155,7 +155,7 @@ Cg
                                     </fragment>
                                     <fragment content="個人が特定されないニックネームにしましょう。">
                                         <attributes>
-                                            <font key="NSFont" size="16" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="16"/>
                                             <real key="NSKern" value="0.0"/>
                                             <font key="NSOriginalFont" size="12" name="Times-Roman"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
@@ -179,7 +179,7 @@ Cg
                                         <fragment content="次へ">
                                             <attributes>
                                                 <color key="NSColor" red="0.12941176470588234" green="0.22745098039215686" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="16" name="LINESeedJPApp_OTF-Bold"/>
+                                                <font key="NSFont" metaFont="system" size="16"/>
                                                 <font key="NSOriginalFont" size="12" name="Helvetica"/>
                                             </attributes>
                                         </fragment>
@@ -246,7 +246,7 @@ Cg
                                     <fragment content="ホーム">
                                         <attributes>
                                             <color key="NSColor" red="1" green="0.80000000000000004" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="28" name="LINESeedJPApp_OTF-Bold"/>
+                                            <font key="NSFont" metaFont="system" size="28"/>
                                             <font key="NSOriginalFont" size="28" name="HelveticaNeue"/>
                                         </attributes>
                                     </fragment>
@@ -260,7 +260,7 @@ Cg
                                     <fragment content="入室してから">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="system" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -297,7 +297,7 @@ Cg
                                     <fragment content="経過">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="16" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="16"/>
                                             <font key="NSOriginalFont" metaFont="system" size="16"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -338,7 +338,7 @@ Cg
                                                         <fragment content="ニックネーム">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="0.80000000000000004" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                                                <font key="NSFont" metaFont="system" size="14"/>
                                                                 <font key="NSOriginalFont" size="14" name="Helvetica"/>
                                                             </attributes>
                                                         </fragment>
@@ -356,7 +356,7 @@ Cg
                                                         <fragment content="作業時間">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="0.80000000000000004" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="10" name="LINESeedJPApp_OTF-Regular"/>
+                                                                <font key="NSFont" metaFont="system" size="10"/>
                                                                 <font key="NSOriginalFont" metaFont="system" size="17"/>
                                                             </attributes>
                                                         </fragment>
@@ -370,7 +370,7 @@ Cg
                                                         <fragment content="時間">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="0.80000000000000004" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="10" name="LINESeedJPApp_OTF-Regular"/>
+                                                                <font key="NSFont" metaFont="system" size="10"/>
                                                                 <font key="NSOriginalFont" metaFont="system" size="17"/>
                                                             </attributes>
                                                         </fragment>
@@ -384,7 +384,7 @@ Cg
                                                         <fragment content="称号">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="0.80000000000000004" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="12" name="LINESeedJPApp_OTF-Regular"/>
+                                                                <font key="NSFont" metaFont="cellTitle"/>
                                                                 <font key="NSOriginalFont" metaFont="system" size="17"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
@@ -492,7 +492,7 @@ Cg
                                                         <fragment content="Weekly Ranking">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="0.80000000000000004" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="LINESeedJPApp_OTF-Regular"/>
+                                                                <font key="NSFont" metaFont="system" size="20"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -600,7 +600,7 @@ Cg
                                     <fragment content="マイページ">
                                         <attributes>
                                             <color key="NSColor" red="0.12941176470588234" green="0.22745098039215686" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="28" name="LINESeedJPApp_OTF-Bold"/>
+                                            <font key="NSFont" metaFont="system" size="28"/>
                                             <font key="NSOriginalFont" size="28" name="HelveticaNeue-Bold"/>
                                         </attributes>
                                     </fragment>
@@ -627,7 +627,7 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="参加イベント">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Bold"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -641,7 +641,7 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="名前が入ります">
                                         <attributes>
-                                            <font key="NSFont" size="20" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="20"/>
                                             <font key="NSOriginalFont" metaFont="system" size="20"/>
                                         </attributes>
                                     </fragment>
@@ -674,23 +674,23 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="時間">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="分">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
@@ -703,23 +703,23 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="時間">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="分">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
@@ -740,23 +740,23 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="時間">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="分">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
@@ -784,18 +784,18 @@ Cg
                                     <attributedString key="attributedTitle">
                                         <fragment content="連続">
                                             <attributes>
-                                                <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                                <font key="NSFont" metaFont="system" size="14"/>
                                                 <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                             </attributes>
                                         </fragment>
                                         <fragment content="7">
                                             <attributes>
-                                                <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                                <font key="NSFont" metaFont="menu" size="14"/>
                                             </attributes>
                                         </fragment>
                                         <fragment content="日間">
                                             <attributes>
-                                                <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                                <font key="NSFont" metaFont="system" size="14"/>
                                                 <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                             </attributes>
                                         </fragment>
@@ -902,7 +902,7 @@ Cg
                                     <fragment content="プロフィール">
                                         <attributes>
                                             <color key="NSColor" red="1" green="0.80000000000000004" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="20" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="20"/>
                                             <font key="NSOriginalFont" metaFont="system" size="17"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -945,7 +945,7 @@ Cg
                                     <attributedString key="attributedTitle">
                                         <fragment content="トーク">
                                             <attributes>
-                                                <font key="NSFont" size="12" name="LINESeedJPApp_OTF-Regular"/>
+                                                <font key="NSFont" metaFont="cellTitle"/>
                                                 <font key="NSOriginalFont" size="12" name="Helvetica"/>
                                             </attributes>
                                         </fragment>
@@ -961,7 +961,7 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="名前が入ります">
                                         <attributes>
-                                            <font key="NSFont" size="20" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="20"/>
                                             <font key="NSOriginalFont" size="17" name="Helvetica"/>
                                         </attributes>
                                     </fragment>
@@ -1006,23 +1006,23 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="時間">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="分">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
@@ -1035,23 +1035,23 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="時間">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="分">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
@@ -1078,23 +1078,23 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="時間">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="○">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="分">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
@@ -1107,7 +1107,7 @@ Cg
                                 <attributedString key="attributedText">
                                     <fragment content="参加イベント">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="LINESeedJPApp_OTF-Bold"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -1263,7 +1263,7 @@ Cg
                                                         <fragment content="1">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="16" name="LINESeedJPApp_OTF-Bold"/>
+                                                                <font key="NSFont" metaFont="system" size="16"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -1312,7 +1312,7 @@ Cg
                                     <fragment content="メッセージ">
                                         <attributes>
                                             <color key="NSColor" red="0.12941176470588234" green="0.22745098039215686" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="28" name="LINESeedJPApp_OTF-Bold"/>
+                                            <font key="NSFont" metaFont="system" size="28"/>
                                             <font key="NSOriginalFont" size="28" name="HelveticaNeue-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -1374,7 +1374,7 @@ Cg
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
