@@ -210,6 +210,15 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
             self.iconImageView.frame.size.width = 80
             self.iconImageView.frame.size.height = 80
             
+			if (myData["has_7day_streak"].intValue == 1)
+			{
+				self.continuationLabel.isHidden = false
+			}
+			else
+			{
+				self.continuationLabel.isHidden = true
+			}
+			
 			self.eventList = myData["events"].arrayValue.compactMap { $0.dictionaryObject as? [String: String] }
 			
 			DispatchQueue.main.async {
