@@ -32,17 +32,16 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var userNameLabel: UILabel!
     
     var myUserData = UserDefaults.standard.dictionary(forKey: "myData")
-    
-    var tableArray = UserDefaults.standard.array(forKey: "eventName") ?? []
-    var eventDayArray = UserDefaults.standard.array(forKey: "eventName") ?? []
-    
+        
+	var eventList = [[String:String]]()
+	
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        postMyData()
-        guard let myFavoAchievement = self.myUserData?["achievementName"]as? String else{return}
-        guard let myName = self.myUserData?["userName"]as? String else{return}
+		self.postMyData()
+        guard let myFavoAchievement = self.myUserData?["achievementName"]as? String else { return }
+        guard let myName = self.myUserData?["userName"]as? String else { return }
         
         self.achieveChangeBtn.setTitle(myFavoAchievement, for: .normal)
         self.userNameLabel.text = myName
@@ -73,7 +72,7 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.tableArray.count
+		return self.eventList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -88,17 +87,16 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
         }
         
-//        cell?.textLabel?.text = self.tableArray[indexPath.row] as! String
-        
-        if let label = cell?.contentView.viewWithTag(1) as? UILabel
-        {
-            label.text = self.tableArray[indexPath.row] as! String
-        }
-        if let label = cell?.contentView.viewWithTag(2) as? UILabel
-        {
-            
-            label.text = self.eventDayArray[indexPath.row] as! String
-        }
+		if let label = cell?.contentView.viewWithTag(1) as? UILabel
+		{
+			label.text = self.eventList[indexPath.row]["event_name"]
+		}
+		if let label = cell?.contentView.viewWithTag(2) as? UILabel
+		{
+			if let eventDate = self.eventList[indexPath.row]["event_date"] as? String {
+				label.text = "\(eventDate) 開催！"
+			}
+		}
         
         return cell!
     }
@@ -141,8 +139,8 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func postMyData()
     {
-        print(myUserData?["myID"])
-        let userID = myUserData?["myID"]
+		let userID = UserDefaults.standard.integer(forKey: "myUserID")
+		
         AF.request("\(self.ipStr)postMyData.php",
                    method: .post,
                    parameters: ["userID": userID],
@@ -174,43 +172,13 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.totalTimeLabel.text = "\(myData["total_hours"])時間\(myData["total_minutes_only"])分"
             
             self.iconImageView.sd_setImage(with: URL(string: "\(self.ipStr)uploads/\(myData["imageURL"])"), completed: nil)
-            
-            print("readEventData関数呼び出し直前")
-            self.readEventData(userID: myData["id"].intValue)
-        }
-    }
-    
-    func readEventData(userID: Int)
-    {
-        print("readEventData関数到達")
-        AF.request("\(self.ipStr)readEventInfo.php",
-                   method: .post,
-                   parameters: ["userID": userID],
-                   encoding: URLEncoding.httpBody,
-                   headers: nil,
-                   interceptor: nil,
-                   requestModifier: nil)
-        .response
-        { res in
-            
-            self.tableArray = []
-            self.eventDayArray = []
-            if let resData = res.data
-            {
-                print(JSON(resData))
-                
-                for i in JSON(resData).arrayValue
-                {
-                    self.tableArray.append(i["event_name"].stringValue)
-                    self.eventDayArray.append(i["event_date"].stringValue)
-                }
-//                self.tableArray = JSON(resData)["event_name"].arrayValue
-                
-                print(self.tableArray)
-                print(self.eventDayArray)
-                
-                self.tableView.reloadData()
-            }
+			
+			self.eventList = myData["events"].arrayValue.compactMap { $0.dictionaryObject as? [String: String] }
+			
+			DispatchQueue.main.async {
+				self.tableView.reloadData()
+			}
+
         }
     }
 }

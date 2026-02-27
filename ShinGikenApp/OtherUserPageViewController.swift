@@ -172,12 +172,12 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
     {
         print("postMydataが実行されました")
 //        let userID = UserDefaults.standard.integer(forKey: "myUserID")
-        let userID = Int(userID!)
+		guard let userID = self.userID else { return }
         
         
         AF.request("\(self.ipStr)postMyData.php",
                    method: .post,
-                   parameters: ["userID": userID],
+                   parameters: ["userID": Int(userID)],
                    encoding: URLEncoding.default,
                    headers: nil,
                    interceptor: nil,
@@ -211,15 +211,18 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
             self.iconImageView.frame.size.height = 80
             
 			self.eventList = myData["events"].arrayValue.compactMap { $0.dictionaryObject as? [String: String] }
-            self.tableView.reloadData()
-            
+			
+			DispatchQueue.main.async {
+				self.tableView.reloadData()
+			}
+
             if let savedFavoUsers = UserDefaults.standard.array(forKey: "favoUserID") as? [[String: Int]]
             {
                 self.favoUsers = savedFavoUsers
                 print("favoUserプリント")
                 print(self.favoUsers)
                 
-                if self.favoUsers.contains(["favoUserID": userID!])
+                if self.favoUsers.contains(["favoUserID": Int(userID)!])
                 {
                     print("すでに登録されています")
                     
