@@ -27,13 +27,18 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var addWatchBtn: UIButton!
+    @IBOutlet weak var eventTopLabel: UILabel!
+    @IBOutlet weak var continuationLabel: UILabel!
     
-	var eventList = [[String:String]]()
+    var isfavo = false
+    
+    var eventList = [[String:String]]()
 	
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.postMyData()
+        tableView.separatorStyle = .none
         
         if let savedFavoUsers = UserDefaults.standard.array(forKey: "favoUserID") as? [[String: Int]]
         {
@@ -42,7 +47,9 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
             print(self.favoUsers)
         }
         
-        print("viewDidLoad終わり")
+        eventTopLabel.layer.borderWidth = 1
+        eventTopLabel.layer.borderColor = UIColor(red: 188/255, green: 154/255, blue: 101/255, alpha: 1.0).cgColor
+
     }
     
     func numberOfSections(in tableView: UITableView) -> Int
@@ -53,6 +60,11 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
 		return self.eventList.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 74
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -75,8 +87,9 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
         }
         if let label = cell?.contentView.viewWithTag(2) as? UILabel
         {
-            
-            label.text = self.eventList[indexPath.row]["event_date"]
+            if let eventDate = self.eventList[indexPath.row]["event_date"] as? String {
+                label.text = "\(eventDate) 開催！"
+            }
         }
         
         return cell!
@@ -108,7 +121,7 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
             if var config = self.addWatchBtn.configuration {
                 print("コンフィグのif文の中身です")
                 
-                if config.title == "ウォッチングリスト追加"
+                if isfavo
                 {
                     let newUserID = Int(userID!)!
                     self.favoUsers.append(["favoUserID": newUserID])
@@ -118,9 +131,9 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
                     
                     print(self.favoUsers)
                     print("保存しました")
-                    
-                    config.title = "ウォッチングリスト解除"
-                }else if config.title == "ウォッチングリスト解除"
+                    config.image = UIImage(named: "listOut")
+                    isfavo = false
+                }else if !isfavo
                 {
                     let newUserID = Int(userID!)!
                     
@@ -131,7 +144,8 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
                     print("削除しました")
                     print(self.favoUsers)
                     UserDefaults.standard.set(self.favoUsers, forKey: "favoUserID")
-                    config.title = "ウォッチングリスト追加"
+                    config.image = UIImage(named: "listIn")
+                    isfavo = true
                 }
 
                 let storyboardFont = self.addWatchBtn.titleLabel?.font
@@ -212,8 +226,7 @@ class OtherUserPageViewController: UIViewController, UITableViewDelegate, UITabl
                     if var config = self.addWatchBtn.configuration {
                         print("コンフィグのif文の中身です")
 
-                        config.title = "ウォッチングリスト解除"
-
+                        config.image = UIImage(named: "listOut")
                         let storyboardFont = self.addWatchBtn.titleLabel?.font
 
                         config.titleTextAttributesTransformer =

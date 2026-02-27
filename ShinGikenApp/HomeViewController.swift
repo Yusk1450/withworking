@@ -98,12 +98,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let headerView = UIView()
         if section == 0
         {
-            headerView.backgroundColor = UIColor(
-                red: 47/255,
-                green: 43/255,
-                blue: 42/255,
-                alpha: 1.0
-            )
+//            headerView.backgroundColor = UIColor(
+//                red: 47/255,
+//                green: 43/255,
+//                blue: 42/255,
+//                alpha: 1.0
+//            )
             headerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 34)
             
             let title = UILabel()
@@ -120,12 +120,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }else
         if section == 1
         {
-            headerView.backgroundColor = UIColor(
-                red: 47/255,
-                green: 43/255,
-                blue: 42/255,
-                alpha: 1.0
-            )
+//            headerView.backgroundColor = UIColor(
+//                red: 47/255,
+//                green: 43/255,
+//                blue: 42/255,
+//                alpha: 1.0
+//            )
             headerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 34)
             
             let title = UILabel()
@@ -134,6 +134,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             title.textColor = .white
             title.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             title.sizeToFit()
+            
             headerView.addSubview(title)
             
             title.translatesAutoresizingMaskIntoConstraints = false
@@ -214,19 +215,28 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             {
                 label.text = self.resStayData[indexPath.row]["userName"] as! String
             }
-            if let label = cell?.contentView.viewWithTag(3) as? UILabel
+            if let label = cell?.contentView.viewWithTag(3) as? CustomLabel
             {
                 label.text = self.resStayData[indexPath.row]["achievementName"] as? String
                 label.sizeToFit()
                 
                 // 角丸
-                label.layer.cornerRadius = 10
+                label.layer.cornerRadius = label.frame.height/2
                 label.layer.masksToBounds = true // 角丸を適用するため必須
-                        
-                // 枠線
-                label.layer.borderWidth = 2
-                label.layer.borderColor = UIColor(red: 1.0, green: 0.8, blue: 0.4745, alpha: 1.0).cgColor
-                        
+                
+                if (label.text != "")
+                {
+                    
+                    // 枠線
+                    label.layer.borderWidth = 2
+                    label.layer.borderColor = UIColor(red: 1.0, green: 0.8, blue: 0.4745, alpha: 1.0).cgColor
+                    
+                }
+                else
+                {
+                    label.layer.borderWidth = 0
+                    label.layer.borderColor = UIColor(red: 1.0, green: 0.8, blue: 0.4745, alpha: 1.0).cgColor
+                }
 //                self.view.addSubview(label)
             }
             if let label = cell?.contentView.viewWithTag(4) as? UILabel
@@ -262,22 +272,32 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             {
                 label.text = self.resFavoData[indexPath.row]["userName"] as! String
             }
-            if let label = cell?.contentView.viewWithTag(3) as? UILabel
-            {
-                label.text = self.resFavoData[indexPath.row]["achievementName"] as! String
-                label.sizeToFit()
+            if let label = cell?.contentView.viewWithTag(3) as? UILabel {
+//                label.layer.borderWidth = 0
+//                label.layer.cornerRadius = 0
+//                label.textInsets = .zero
+//                label.text = ""
+
+                let title = self.resFavoData[indexPath.row]["achievementName"] as? String
                 
-                let padding: CGFloat = 4.0
-                label.frame = CGRect(
-                    x: label.frame.origin.x - padding,
-                    y: label.frame.origin.y - padding,
-                    width: label.frame.size.width + padding * 2,
-                    height: label.frame.size.height + padding * 2
-                )
-                
-                label.layer.borderWidth = 1.0    // 枠線の幅
-                label.layer.borderColor = UIColor(red: 1.0, green: 0.8, blue: 0.4745, alpha: 1.0).cgColor
+                    
+                    label.text = title
+//                    
+//                    label.textInsets = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
+                    label.sizeToFit()
+                    
+                    label.layer.cornerRadius = label.frame.height / 2
+                    label.layer.masksToBounds = true
+                    label.layer.borderWidth = 2
+                    label.layer.borderColor = UIColor(
+                        red: 1.0,
+                        green: 0.8,
+                        blue: 0.4745,
+                        alpha: 1.0
+                    ).cgColor
+                    
             }
+            
             if let label = cell?.contentView.viewWithTag(4) as? UILabel,let todayStayTime = self.resFavoData[indexPath.row]["diff_hours"] as? Int
             {
                 label.text = "\(todayStayTime)時間"
