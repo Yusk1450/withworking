@@ -33,6 +33,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     override func viewDidLoad()
     {
         super.viewDidLoad()
+		
+//		UserDefaults.standard.set(35, forKey: "myUserID")
         
         // 仮のウォッチングリストユーザー情報
         let favoUsers:[[String:Any]] = [["favoUserID": 2], ["favoUserID": 5]]

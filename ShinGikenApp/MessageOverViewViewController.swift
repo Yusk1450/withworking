@@ -15,37 +15,31 @@ class MessageOverViewViewController: UIViewController, UITableViewDelegate, UITa
     let ipStr = ShareData.shared.IP
     var messageUserName: [String] = []
     
-    var resUserInfo: JSON = JSON()
-    
-    var moveMessageID: String = ""
+	var resUserInfo = [[String:Any]]()
     
     let cullentReadDict: [String: Int] = UserDefaults.standard.dictionary(forKey: "currentReadDict") as? [String: Int] ?? [:]
-    
-    let userDataJSON = [["userID": 1, "otherID":3, "readedID":5], ["userID": 1, "otherID":5, "readedID":5]]
-//
-//    var noReadMessageCount: [[Int: Int]] = []
-    
+	
+	var senderID: Int?
+	
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        print("messageOverViewに移動しました")
-        
-        self.readOverviewUsers(userID: 1)
-        print(self.userDataJSON)
-        
+
         self.tableView.separatorColor = UIColor(red: 188.0 / 255.0, green: 154.0 / 255.0, blue: 101.0 / 255.0, alpha: 1.0)
         self.tableView.rowHeight = 117
-        
-        
-        
-        // udに保存しておいた自分のユーザーidを取り出す
-        let myUserID = UserDefaults.standard.integer(forKey: "myUserID")
-        
-        // udの中のメッセージ閲覧情報を参照して新着メッセージの個数、ユーザー名、時間を取ってきてる関数
-//        getFavoUserData(userID: myUserID, messageID: 1)
     }
+	
+	override func viewWillAppear(_ animated: Bool)
+	{
+		super.viewWillAppear(animated)
+
+		let userID = UserDefaults.standard.integer(forKey: "myUserID")
+		print("userID: \(userID)")
+		
+		self.readOverviewUsers(userID: userID)
+	}
     
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
@@ -59,26 +53,29 @@ class MessageOverViewViewController: UIViewController, UITableViewDelegate, UITa
     func readOverviewUsers(userID: Int)
     {
         AF.request("\(self.ipStr)messageOverView.php",
-                   method: .post,
-                   parameters: ["userDataJSON": self.userDataJSON],
-//                   parameters: ["userDataJSON": self.cullentReadDict],
-                   encoding: JSONEncoding.default,
+                   method: .get,
+				   parameters: ["userID": userID],
+                   encoding: URLEncoding.default,
                    headers: nil,
                    interceptor: nil,
                    requestModifier: nil)
-        .response
-        { res in
-            print(String(data: res.data!, encoding: .utf8)!)
-            if let resData = res.data
-            {
-                print(JSON(resData))
-                self.resUserInfo = JSON(resData)
-                
-                print(self.resUserInfo)
-                
-                self.tableView.reloadData()
-            }
-        }
+        .responseJSON { res in
+
+			if let data = res.data
+			{
+				let json = JSON(data)
+				
+				print(json)
+				
+				self.resUserInfo = json.arrayObject as! [[String:Any]]
+				
+//				print(self.resUserInfo)
+				
+				DispatchQueue.main.async {
+					self.tableView.reloadData()
+				}
+			}
+		}
     }
     
     // ユーザー名の個数だけセルを作る
@@ -101,32 +98,44 @@ class MessageOverViewViewController: UIViewController, UITableViewDelegate, UITa
         
         if let userIcon = cell?.contentView.viewWithTag(1) as? UIImageView
         {
-            userIcon.sd_setImage(with: URL(string: "\(self.ipStr)\(self.resUserInfo[indexPath.row]["icon_img_url"])"))
+			if let imagePath = self.resUserInfo[indexPath.row]["imageURL"] as? String
+			{
+				print("\(self.ipStr)\(imagePath)")
+				
+				userIcon.sd_setImage(with: URL(string: "\(self.ipStr)uploads/\(imagePath)"))
+			}
         }
         if let userNameLabel = cell?.contentView.viewWithTag(2) as? UILabel
         {
-            userNameLabel.text = self.resUserInfo[indexPath.row]["user_name"].stringValue
+            userNameLabel.text = self.resUserInfo[indexPath.row]["userName"] as? String
         }
         if let receivedTimeLabel = cell?.contentView.viewWithTag(3) as? UILabel
         {
-            let receivedTime = self.resUserInfo[indexPath.row]["elapsed_time"].stringValue
-            receivedTimeLabel.text = "\(receivedTime)分前"
+			if let receivedTime = self.resUserInfo[indexPath.row]["created_at"] as? String
+			{
+				receivedTimeLabel.text = self.timeAgoString(from: receivedTime)
+			}
         }
         if let newMessageLabel = cell?.contentView.viewWithTag(4) as? UILabel
         {
-            newMessageLabel.text = self.resUserInfo[indexPath.row]["last_message"].stringValue
+            newMessageLabel.text = self.resUserInfo[indexPath.row]["messageValue"] as? String
         }
         if let testlabel = cell?.contentView.viewWithTag(5) as? UILabel
         {
-            let messageCountNum = self.resUserInfo[indexPath.row]["unread_count"].stringValue
-            
-            if messageCountNum == "0"
-            {
-                testlabel.isHidden = true
-            }else{testlabel.isHidden = false}
-            testlabel.layer.cornerRadius = 20.0      // 角の半径
-            testlabel.clipsToBounds = true
-            testlabel.text = messageCountNum
+            if let messageCountNum = self.resUserInfo[indexPath.row]["unread_count"] as? Int
+			{
+				if messageCountNum == 0
+				{
+					testlabel.isHidden = true
+				}
+				else
+				{
+					testlabel.isHidden = false
+				}
+				testlabel.layer.cornerRadius = 20.0      // 角の半径
+				testlabel.clipsToBounds = true
+				testlabel.text = messageCountNum.description
+			}
         }
         
         return cell!
@@ -134,19 +143,46 @@ class MessageOverViewViewController: UIViewController, UITableViewDelegate, UITa
     
     // セルが選択されたとき変数segueValueに相手のidを代入して画面遷移する
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-        self.moveMessageID = self.resUserInfo[indexPath.row]["user_id"].stringValue
+	{
+		self.senderID = self.resUserInfo[indexPath.row]["senderID"] as? Int
         
         performSegue(withIdentifier: "performMessage", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func timeAgoString(from dateString: String) -> String
+    {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = Locale(identifier: "ja_JP")
+        
+        guard let date = formatter.date(from: dateString) else { return dateString }
+        
+        let seconds = Int(Date().timeIntervalSince(date))
+        
+        if seconds < 60 { return "たった今" }
+        let minutes = seconds / 60
+        if minutes < 60 { return "\(minutes)分前" }
+        let hours = minutes / 60
+        if hours < 24 { return "\(hours)時間前" }
+        let days = hours / 24
+        if days < 30 { return "\(days)日前" }
+        let months = days / 30
+        if months < 12 { return "\(months)ヶ月前" }
+        let years = months / 12
+        return "\(years)年前"
+    }
+    
     // 画面遷移する直前にShinMessageViewControllerのuserID,otherIDにそれぞれ自分のid、相手のidを代入する
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        let nextViewController = segue.destination as? ShinMessageViewController
+		if let senderID = self.senderID
+		{
+			let nextViewController = segue.destination as? ShinMessageViewController
 
-        nextViewController?.userID = String(UserDefaults.standard.integer(forKey: "myUserID"))
-        nextViewController?.otherID = self.moveMessageID
+			nextViewController?.userID = String(UserDefaults.standard.integer(forKey: "myUserID"))
+			nextViewController?.otherID = String(senderID)
+		}
+		
     }
 }
