@@ -38,6 +38,8 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad()
     {
         super.viewDidLoad()
+		
+		self.achieveChangeBtn.isUserInteractionEnabled = false
         
 		self.postMyData()
         guard let myFavoAchievement = self.myUserData?["achievementName"]as? String else { return }
@@ -172,6 +174,8 @@ class MyPageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.totalTimeLabel.text = "\(myData["total_hours"])時間\(myData["total_minutes_only"])分"
             
             self.iconImageView.sd_setImage(with: URL(string: "\(self.ipStr)uploads/\(myData["imageURL"])"), completed: nil)
+			
+			self.achieveChangeBtn.setTitle(myData["achievementName"].stringValue, for: .normal)
 			
 			self.eventList = myData["events"].arrayValue.compactMap { $0.dictionaryObject as? [String: String] }
 			
