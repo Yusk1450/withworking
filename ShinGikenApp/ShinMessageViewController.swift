@@ -8,6 +8,9 @@ class ShinMessageViewController: MessagesViewController
 {
     var userID:String?
     var otherID:String?
+	var otherName:String?
+	var otherImageURL:String?
+	
     let ipStr = ShareData.shared.IP
     
     var messageArray = ["messageArrayTest1", "messageArrayTest2", "messageArrayTest3"]
@@ -39,6 +42,8 @@ class ShinMessageViewController: MessagesViewController
         print(userID)
         print(otherID)
         
+		self.checkMessage(senderID: otherID, receiverID: userID)
+		
         readMessage(myID: userID, otherID: otherID)
         // 1秒ごとにメッセージを引っ張ってくる
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -114,6 +119,17 @@ class ShinMessageViewController: MessagesViewController
 //        print("画面が消える直前")
 //        saveData()
     }
+	
+	func checkMessage(senderID:Int, receiverID:Int)
+	{
+		AF.request("\(self.ipStr)checkMessage.php",
+				   method: .get,
+				   parameters: ["senderID": senderID, "receiveID": receiverID],
+				   encoding: URLEncoding.default)
+		.response
+		{ response in
+		}
+	}
 
     // メッセージを追加
     func addTextMessage(sendMessage: String, senderFlag: Bool) {
@@ -161,7 +177,6 @@ class ShinMessageViewController: MessagesViewController
     // メッセージ一覧をサーバーから取得
     func readMessage(myID: Int,otherID: Int)
     {
-        print("メッセージを取得する関数実行開始")
         self.messageList.removeAll()
         print(myID)
         print(otherID)
@@ -196,6 +211,14 @@ class ShinMessageViewController: MessagesViewController
     
     func sendMessage(senderID: Int, receiverID: Int, messageVal: String)
     {
+        if messageVal.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        {
+            let alert = UIAlertController(title: "エラー", message: "メッセージを入力してください", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+        
         AF.request("\(self.ipStr)saveMessage.php",
                    method: .post,
                    parameters: ["senderID": senderID, "receiverID": receiverID, "messageVal": messageVal],
@@ -214,7 +237,7 @@ class ShinMessageViewController: MessagesViewController
 // MARK: - MessagesDataSource
 extension ShinMessageViewController: MessagesDataSource {
     func currentSender() -> any MessageKit.SenderType { Sender(id: "123", displayName: "自分") }
-    func otherSender() -> Sender { Sender(id: "456", displayName: "知らない人") }
+	func otherSender() -> Sender { Sender(id: "456", displayName: self.otherName!) }
 
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int { messageList.count }
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -264,8 +287,23 @@ extension ShinMessageViewController: MessagesDisplayDelegate {
     }
 
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        let avatar = Avatar(initials: "人")
-        avatarView.set(avatar: avatar)
+        if isFromCurrentSender(message: message)
+        {
+            avatarView.isHidden = true
+        }
+        else
+        {
+            avatarView.isHidden = false
+            if let imageName = self.otherImageURL
+            {
+                avatarView.sd_setImage(with: URL(string: "\(self.ipStr)uploads/\(imageName)"))
+            }
+            else
+            {
+                let avatar = Avatar(initials: "人")
+                avatarView.set(avatar: avatar)
+            }
+        }
     }
 }
 

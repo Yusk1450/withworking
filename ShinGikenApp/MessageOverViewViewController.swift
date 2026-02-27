@@ -20,6 +20,8 @@ class MessageOverViewViewController: UIViewController, UITableViewDelegate, UITa
     let cullentReadDict: [String: Int] = UserDefaults.standard.dictionary(forKey: "currentReadDict") as? [String: Int] ?? [:]
 	
 	var senderID: Int?
+	var senderName: String?
+	var senderImageURL: String?
 	
     @IBOutlet weak var tableView: UITableView!
     
@@ -145,7 +147,9 @@ class MessageOverViewViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
 		self.senderID = self.resUserInfo[indexPath.row]["senderID"] as? Int
-        
+		self.senderName = self.resUserInfo[indexPath.row]["userName"] as? String
+		self.senderImageURL = self.resUserInfo[indexPath.row]["imageURL"] as? String
+		
         performSegue(withIdentifier: "performMessage", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -182,6 +186,8 @@ class MessageOverViewViewController: UIViewController, UITableViewDelegate, UITa
 
 			nextViewController?.userID = String(UserDefaults.standard.integer(forKey: "myUserID"))
 			nextViewController?.otherID = String(senderID)
+			nextViewController?.otherName = self.senderName
+			nextViewController?.otherImageURL = self.senderImageURL
 		}
 		
     }
