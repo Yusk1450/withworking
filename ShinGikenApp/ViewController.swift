@@ -204,8 +204,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 print(Int(String(data: resText, encoding: .utf8)!))
                 
                 // 一時的に無効化してid1に固定する
-//                let userID = Int(String(data: resText, encoding: .utf8)!)!
-                let userID = 1
+                let userID = Int(String(data: resText, encoding: .utf8)!)!
+//                let userID = 1
                 
                 uploadImageAF(userID: userID)
                 regiimageURL(userID: userID)

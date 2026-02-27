@@ -24,6 +24,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var resFavoData:[[String:Any]] = []
     var resStayData:[[String:Any]] = []
     var resRankData:[[String:Any]] = []
+	
+	var myUserID = -1
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -58,7 +60,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         {
             self.favoUsers = savedFavoUsers
         }
-        let myUserID = UserDefaults.standard.integer(forKey: "myUserID")
+		self.myUserID = UserDefaults.standard.integer(forKey: "myUserID")
 //        print("自分のid")
 //        print(myUserID)
         
@@ -196,6 +198,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell?.selectionStyle = .none
         }
         
+        let clearView = UIView()
+        clearView.backgroundColor = .clear
+        cell?.selectedBackgroundView = clearView
+        
         if (cell == nil)
         {
             cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
@@ -210,7 +216,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             if let label = cell?.contentView.viewWithTag(3) as? UILabel
             {
-                label.text = self.resStayData[indexPath.row]["achievementName"] as! String
+                label.text = self.resStayData[indexPath.row]["achievementName"] as? String
                 label.sizeToFit()
                 
                 // 角丸
@@ -223,9 +229,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         
 //                self.view.addSubview(label)
             }
-            if let label = cell?.contentView.viewWithTag(4) as? UILabel,let todayStayTime = self.resStayData[indexPath.row]["diff_hours"] as? Int
+            if let label = cell?.contentView.viewWithTag(4) as? UILabel
+				,let todayStayTime = self.resStayData[indexPath.row]["diff_hours"] as? Int
             {
-                label.text = String(todayStayTime)
+                label.text = "\(todayStayTime)時間"
             }
             
             // imageViewに画像を設定
@@ -273,7 +280,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             if let label = cell?.contentView.viewWithTag(4) as? UILabel,let todayStayTime = self.resFavoData[indexPath.row]["diff_hours"] as? Int
             {
-                label.text = String(todayStayTime)
+                label.text = "\(todayStayTime)時間"
             }
             
             // imageViewに画像を設定
@@ -368,24 +375,43 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func nowStayUserData()
     {
+		print("\(self.ipStr)resNowStayUser.php")
+		
         AF.request("\(self.ipStr)resNowStayUser.php",
-                   method: .post,
+                   method: .get,
                    parameters: nil,
-                   encoding: JSONEncoding.default,
+				   encoding: URLEncoding.default,
                    headers: nil,
                    interceptor: nil,
                    requestModifier: nil)
-        .response
-        {response in
-            guard let JSONData = response.data else{return}
-            let testData = JSON(JSONData)
-            guard let responseJSON = testData.arrayObject as? [[String: Any]] else {return}
-            self.resStayData = responseJSON
-            
-            print("滞在ユーザー情報")
-            print(self.resStayData)
-            
-            self.tableView.reloadData()
+        .responseJSON { res in
+
+			
+			if let data = res.data
+			{
+				let json = JSON(data)
+				
+//				print(json)
+				
+				guard let responseJSON = json.arrayObject as? [[String: Any]] else {return}
+				self.resStayData = responseJSON
+				
+				print("滞在ユーザー情報")
+				print(self.resStayData)
+				
+				for user in self.resStayData
+				{
+					if (user["users_id"] as! Int == self.myUserID)
+					{
+						self.todayStayTime.isHidden = false
+						self.todayStayTime.text = "\(user["diff_hours"] as! Int)時間"
+					}
+				}
+				
+				DispatchQueue.main.async{
+					self.tableView.reloadData()
+				}
+			}
         }
     }
     
